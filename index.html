@@ -1,0 +1,286 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Web components</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>Web components</h1>
+				</section>
+				<section>
+					<p><strong>Web components</strong> - a set of standards that allows you to create new, custom HTML elements with their own properties, 
+					methods, encapsulated DOM and styles, without connecting any libraries or frameworks.</p>
+				</section>
+				<section>
+					<div>
+						<h6>The basic approach for implementing a web component:</h6>
+					</div>
+					<ol>
+						<li>Create a class or function in which you specify the functionality of your web component.</li>
+						<li>Register a new custom element using the CustomElementRegistry.define() method.</li>
+						<li>Attach the shadow DOM to the user element using the Element.attachShadow() method. 
+							Add children to the shadow DOM using regular DOM methods.</li>
+						<li>If necessary, define the HTML template using "template" and "slot".</li>
+					</ol>
+				</section>
+				<section>
+					<p>Any web component is based on four unique W3C technologies:</p>
+					<ul>
+						<li>Custom elements</li>
+						<li>Shadow DOM</li>
+						<li>Import HTML</li>
+						<li>Template HTML</li>
+					</ul>
+				</section>
+				<section>
+					<section>
+						<p>
+							<strong>Custom elements</strong> <aside>a set of JavaScript APIs that let you define user elements and their behavior, 
+								which you can then use as you wish in your user interface.</aside>
+						</p>
+					</section>	
+					<section>
+						<p>
+							There are two kinds of custom elements:
+						</p>
+						<ul>
+							<li><strong>Autonomous user elements</strong><aside> - completely new elements that extend the abstract HTMLElement class.</aside></li>
+							<li><strong>Modified build-in elements</strong><aside> - an extension of existing elements.</aside></li>
+						</ul>	
+					</section>
+					<section>
+						<p>
+							<strong>Using lifecycle callbacks:</strong>
+						</p>	
+						<img src="./assets/image/autonmous.png" alt="autonomous custom element">
+					</section>
+				</section>	
+				<section>
+					<section>
+						<p>
+							<strong>Shadow DOM</strong>: a set of JavaScript APIs for attaching an encapsulated “shadow” DOM tree to an element
+							 that is displayed separately from the main DOM document and controlling the corresponding functions. 
+						</p>
+					</section>
+					<section style="font-size: 38px; width: 1200px;">
+						<img src="./assets/image/shadow.png" alt="shadow-dom tree">
+						<p>
+							<strong>Shadow DOM terminology:</strong>
+						</p>
+						<ol>
+							<li><em>Shadow host:</em> the regular DOM node that the shadow DOM is attached to.</li>
+							<li><em>Shadow tree:</em> the DOM tree inside the shadow DOM.</li>
+							<li><em>Shadow boundary:</em> the place where the shadow DOM ends, and the regular DOM begins.</li>
+							<li><em>Shadow root:</em> The root node of the shadow tree.</li>
+						</ol>
+					</section>
+					<section>
+						<p>
+							Each DOM element can have 2 types of DOM subtrees:
+						</p>
+						<ul>
+							<li><em>Light tree</em><aside> - "Light" DOM subtree consisting of HTML descendants.</aside></li>
+							<li><em>Shadow tree</em><aside> - “Shadow” DOM subtree, not reflected in HTML, hidden from prying eyes.</aside></li>
+						</ul>
+					</section>
+					<section>
+						<h6>
+							Shadow DOM Elements:
+						</h6>
+						<ol>
+							<li>Have their own scope for identifiers</li>
+							<li>Invisible JavaScript selectors from the main document, such as querySelector.</li>
+							<li>Stylized by their styles from a shade tree, not from the main document.</li>
+						</ol>
+					</section>
+				</section>
+				<section>
+						<div>
+							<strong>HTML Import</strong><aside> the ability to import HTML code and reuse components on other pages.</aside>	
+						</div>
+				</section>
+				<section>
+					<section>
+						<p>
+							<strong>HTML template</strong><aside> "template" and "slot" elements allow you to write layouts for templates that do not 
+							appear in the displayed page. Then they can be reused as the basis of the structure of the user element.</aside>
+						</p>
+					</section>
+					<section>
+						<p>Advantage of the "template" element:</p>
+						<ul>
+							<li>The browser checks the correctness of the HTML syntax in it</li>
+							<li>Allows you to use any HTML tags, even those that are not used without the appropriate wrapper.</li>
+							<li>Its contents come to life (scripts are executed, "video autoplay" is played, etc.) when placed in a document.</li>
+							<li>The "template" element does not support iteration, data binding, or variable substitution. However, these features can be implemented on top of it.</li>
+						</ul>
+					</section>	
+				</section>
+				<section>
+					<section>
+						<p><strong>Slot</strong><aside> the ability to combine external html content with the internal html component</aside></p>
+					</section>
+					<section>
+						<p>There are two types of slots:</p>
+						<ol>
+							<li><em>Named slots</em><aside> (slot name = "X" ... ) - receive light DOM elements with slot = "X".</aside></li>
+							<li><em>Default slot</em><aside> the first  without a name - shows elements of light tree elements that are not in other slots.</aside></li>
+						</ol>
+					</section>
+					<section>
+						<p>Item and slot definition</p>
+						<ul>
+							<li>Node.assignedSlot</li>
+							<li>Slot.assignedNodes - DOM nodes that are in the slot.
+							<li>Slot.assignedElements</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h6>Shadow DOM Style</h6>
+						<p>The shadow DOM may contain "style" and "link rel = "stylesheet" href = "..."" tags.</p>
+					</section>
+					<section>
+						<p>:host<aside> the :host selector allows you to select a host element (an element containing a shadow tree).</aside></p>
+						<p>:host (selector)<aside> same as :host, but only applies if the host element matches the selector selector.</aside></p>
+						<p>:host-context (selector)<aside> the same as :host, but only applies if the host element or any of its ancestors in the external document matches the selector selector.</aside></p>
+					</section>
+				</section>	
+				<section>
+					<p>Advantages</p>
+					<ul>
+						<li>Code reusability.</li> 
+						<li>User interface consistency.</li>
+						<li>The ability to quickly develop programs.</li>
+						<li>Implementation of micro-frontends.</li>
+						<li>Allows you to create areas of isolated CSS.</li>
+					</ul>
+				</section>	
+				<section>
+					<p>Disadvantages</p>
+					<ul>
+						<li>The need for flexible components.</li>
+						<li>Global component names.</li>
+						<li>Global register issue.</li>
+						<li>Typing issues.</li>
+						<li>Group property update.</li>
+					</ul>
+				</section>
+				<section>
+					<section>
+						<h2>Polymer Library</h2>
+					</section>
+					<section>
+						<p><strong>The Polymer project consists of:</strong></p>
+						<ul>
+							<li>Polymer library.</li>
+							<li>WebComponents Polyfill.</li>
+							<li>Polymer App Toolbox.</li>
+						</ul>
+					</section>
+					<section>
+						<p><strong>Polymer elements can be:</strong></p>
+						<ul>
+							<li>Created using the constructor or document.createElement.</li>
+							<li>Configure using attributes or properties.</li>
+							<li>Filled with an internal DOM inside each instance.</li>
+							<li>Respond to changes in properties and attributes.</li>
+							<li>A style with internal defaults or externally.</li>
+							<li>Responsive to methods that manipulate his internal state.</li>
+						</ul>
+					</section>
+					<section>
+						<p>The structure of the polymer element</p>
+						<img src="./assets/image/polymer-elem.png" alt="Polymer element">
+						</section>
+					<section>
+						<p>This guide divides the features into the following groups:</p>
+						<ul>
+							<li>Custom elements. <aside>Registering an element associates a class with a custom element name. The element 
+								provides callbacks to manage its lifecycle. Polymer also lets you declare properties, to integrate your element's property API with the Polymer data system.</aside></li>
+							<li>Shadow DOM. <aside>Shadow DOM provides a local, encapsulated DOM tree for your element. 
+								Polymer can automatically create and populate a shadow tree for your element from a DOM template.</aside></li>
+						</ul>		
+					</section>
+					<section>
+						<ul>
+							<li>Events. <aside>Polymer provides a declarative syntax for attaching event listeners to shadow DOM children. 
+								It also provides an optional library for handling gesture events.</aside></li>
+							<li>Data system. <aside>The Polymer data system provides data binding to properties and attributes; property observers; 
+								and computed properties.</aside></li>	
+						</ul>
+					</section>
+					<section>
+						<p>Google's Polymer library catalog contains custom elements, that are ready to use in your applications.</p>
+						<img src="./assets/image/polymer-catalog.png" alt="Polymer catalog">
+					</section>
+					<section>
+						<p>Features Polymer</p>
+						<ul>
+							<li>This is a JavaScript library built on the basis of the API web standards that allow you 
+								to create your own HTML elements.</li>
+							<li>It provides polyfiles for creating your own custom and reusable elements.</li>
+							<li>It uses web component standards to create reusable widgets in web documents and web applications.</li>
+							<li>He uses Google Material Design to develop a hybrid mobile application.</li>
+							<li>It distributes user elements over the network, and users can use these elements using HTML import.</li>
+						</ul>
+					</section>	
+					<section style="font-size: 38px;">
+						<h6>Advantages</h6>
+						<ol style="width: 1200px;">
+							<li>Provides declarative syntax, that allows you to easily create your own elements using HTML, CSS and JavaScript to add interaction to the element.</li>
+							<li>It has both one-way and two-way data binding.</li>
+								<ul>
+									<li>When the properties in the model for an item are updated, the item can update itself in response.</li>
+									<li>When an item is updated internally, changes can be propagated back to the model</li>
+								</ul>
+							<li>IDesigned to be flexible, easy and close to the web platform - the library does not invent complex new abstractions, but uses the best 
+								features of the web platform in a simple way to simplify the creation of custom elements.  </li>
+						</ol>
+					</section>
+				</section>
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				hash: true,
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/highlight/highlight.js' },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>
+
+
